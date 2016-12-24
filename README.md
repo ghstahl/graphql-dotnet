@@ -31,7 +31,40 @@ There is a sample web api project hosting the GraphiQL interface.  `yarn install
 > yarn start
 ```
 ![](http://i.imgur.com/2uGdVAj.png)
+```
+Query Statement
 
+query StarWars($idValue: String!){
+  human(id:$idValue){
+  	__typename    
+		name
+  	homePlanet
+  	appearsIn
+  	friends{
+      name
+    }
+  }
+}
+
+query Values
+{
+  "idValue": "1"
+}
+
+Mutation Statment
+mutation StarWars($idValue: String!,$nameValue: String!){
+  human(id:$idValue,name:$nameValue){
+		id
+    name
+  }
+}
+
+query Values
+{
+  "idValue": "1",
+  "nameValue": "Luke Skywalker"
+}
+```
 ## Usage
 
 Define your schema with a top level query object then execute that query.
