@@ -24,6 +24,8 @@ namespace GraphQL.GraphiQL
 
             container.Singleton(new StarWarsData());
             container.Register<StarWarsQuery>();
+            container.Register<StarWarsMutation>();
+            
             container.Register<HumanType>();
             container.Register<DroidType>();
             container.Register<CharacterInterface>();

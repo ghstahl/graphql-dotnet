@@ -16,12 +16,12 @@ namespace GraphQL.GraphiQL
             builder.RegisterInstance(new StarWarsData()).As<StarWarsData>();
 
             builder.RegisterType<StarWarsQuery>().AsSelf();
+            builder.RegisterType<StarWarsMutation>().AsSelf();
             builder.RegisterType<HumanType>().AsSelf();
             builder.RegisterType<DroidType>().AsSelf();
             builder.RegisterType<EpisodeEnum>().AsSelf();
 
             builder.RegisterType<CharacterInterface>().AsSelf();
-            builder.RegisterType<StarWarsQuery>().AsSelf();
             builder.RegisterType<StarWarsSchema>().AsSelf();
             builder.Register<Func<Type, GraphType>>(c =>
             {
