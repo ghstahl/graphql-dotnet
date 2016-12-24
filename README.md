@@ -31,9 +31,9 @@ There is a sample web api project hosting the GraphiQL interface.  `yarn install
 > yarn start
 ```
 ![](http://i.imgur.com/2uGdVAj.png)
-```
-Query Statement
 
+### Query Statement 
+```
 query StarWars($idValue: String!){
   human(id:$idValue){
   	__typename    
@@ -45,21 +45,24 @@ query StarWars($idValue: String!){
     }
   }
 }
-
-query Values
+```
+### query Values 
+```javascript
 {
   "idValue": "1"
 }
-
-Mutation Statment
+```
+### Mutation Statment  
+```
 mutation StarWars($idValue: String!,$nameValue: String!){
   human(id:$idValue,name:$nameValue){
 		id
     name
   }
 }
-
-query Values
+```
+### query Values 
+```
 {
   "idValue": "1",
   "nameValue": "Luke Skywalker"
