@@ -252,7 +252,7 @@ namespace GraphQL
                 context,
                 rootType,
                 context.Operation.SelectionSet,
-                new Dictionary<string, Fields>(),
+                new Dictionary<string, Fields>(StringComparer.OrdinalIgnoreCase),
                 new List<string>());
 
             return ExecuteFieldsAsync(context, rootType, context.RootValue, fields);
@@ -426,7 +426,7 @@ namespace GraphQL
                 throw error;
             }
 
-            var subFields = new Dictionary<string, Fields>();
+            var subFields = new Dictionary<string, Fields>(StringComparer.OrdinalIgnoreCase);
             var visitedFragments = new List<string>();
 
             fields.Apply(f =>
@@ -444,7 +444,7 @@ namespace GraphQL
                 return null;
             }
 
-            return definitionArguments.Aggregate(new Dictionary<string, object>(), (acc, arg) =>
+            return definitionArguments.Aggregate(new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase), (acc, arg) =>
             {
                 var value = astArguments?.ValueFor(arg.Name);
                 var type = arg.ResolvedType;
@@ -602,7 +602,7 @@ namespace GraphQL
             if (value is ObjectValue)
             {
                 var objVal = (ObjectValue)value;
-                var obj = new Dictionary<string, object>();
+                var obj = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
                 objVal.FieldNames.Apply(name => obj.Add(name, ValueFromAst(objVal.Field(name).Value)));
                 return obj;
             }
@@ -664,10 +664,15 @@ namespace GraphQL
                 {
                     return false;
                 }
-
+                
                 // ensure every provided field is defined
                 if (type is InputObjectGraphType
-                    && dict.Keys.Any(key => complexType.Fields.FirstOrDefault(field => field.Name == key) == null))
+                    && dict.Keys.Any(key => complexType.Fields.FirstOrDefault(field =>
+                    {
+                        var result = string.Compare(field.Name, key, StringComparison.OrdinalIgnoreCase) == 0;
+                       // var result = field.Name == key;
+                        return result;
+                    }) == null))
                 {
                     return false;
                 }
@@ -737,7 +742,7 @@ namespace GraphQL
             if (type is IObjectGraphType || type is InputObjectGraphType)
             {
                 var complexType = type as IComplexGraphType;
-                var obj = new Dictionary<string, object>();
+                var obj = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
                 var objectValue = input as ObjectValue;
                 if (objectValue == null)
@@ -778,7 +783,7 @@ namespace GraphQL
         {
             if (fields == null)
             {
-                fields = new Dictionary<string, Fields>();
+                fields = new Dictionary<string, Fields>(StringComparer.OrdinalIgnoreCase);
             }
 
             selectionSet.Selections.Apply(selection =>

@@ -82,7 +82,7 @@ namespace GraphQL
             var objectValue = value as JObject;
             if (objectValue != null)
             {
-                var output = new Dictionary<string, object>();
+                var output = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
                 foreach (var kvp in objectValue)
                 {
                     output.Add(kvp.Key, GetValue(kvp.Value));
@@ -93,7 +93,7 @@ namespace GraphQL
             var propertyValue = value as JProperty;
             if (propertyValue != null)
             {
-                return new Dictionary<string, object>
+                return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
                 {
                     { propertyValue.Name, GetValue(propertyValue.Value) }
                 };

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GraphQL.Language.AST;
 using GraphQL.Types;
@@ -120,7 +121,7 @@ namespace GraphQL.Validation
 
             var fragments = new List<FragmentDefinition>();
             var nodesToVisit = new Stack<SelectionSet>(new[] {operation.SelectionSet});
-            var collectedNames = new Dictionary<string, bool>();
+            var collectedNames = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
 
             while (nodesToVisit.Any())
             {

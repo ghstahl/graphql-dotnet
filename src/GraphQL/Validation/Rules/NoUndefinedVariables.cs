@@ -19,7 +19,7 @@ namespace GraphQL.Validation.Rules
 
         public INodeVisitor Validate(ValidationContext context)
         {
-            var variableNameDefined = new Dictionary<string, bool>();
+            var variableNameDefined = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
 
             return new EnterLeaveListener(_ =>
             {

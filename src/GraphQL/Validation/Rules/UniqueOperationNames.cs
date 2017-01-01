@@ -16,7 +16,7 @@ namespace GraphQL.Validation.Rules
 
         public INodeVisitor Validate(ValidationContext context)
         {
-            var frequency = new Dictionary<string, string>();
+            var frequency = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             return new EnterLeaveListener(_ =>
             {

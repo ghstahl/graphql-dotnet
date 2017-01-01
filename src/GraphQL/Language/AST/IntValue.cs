@@ -255,7 +255,13 @@ namespace GraphQL.Language.AST
 
         public ObjectField Field(string name)
         {
-            return ObjectFields.FirstOrDefault(x => x.Name == name);
+            
+            return ObjectFields.FirstOrDefault(x =>
+            {
+              //  var result = x.Name == name;
+                var result = string.Compare(x.Name, name, StringComparison.OrdinalIgnoreCase) == 0;
+                return result;
+            });
         }
 
         public override string ToString()

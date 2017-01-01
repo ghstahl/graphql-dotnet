@@ -343,7 +343,12 @@ namespace GraphQL
                 var fields = dict
                     .Select(pair =>
                     {
-                        var field = input.Fields.FirstOrDefault(x => x.Name == pair.Key);
+                        var field = input.Fields.FirstOrDefault(x =>
+                        {
+                       //     var result = x.Name == pair.Key;
+                            var result = string.Compare(x.Name, pair.Key, StringComparison.OrdinalIgnoreCase) == 0;
+                            return result;
+                        });
                         var fieldType = field?.ResolvedType;
                         return new ObjectField(pair.Key, AstFromValue(pair.Value, schema, fieldType));
                     })

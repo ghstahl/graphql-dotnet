@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GraphQL.Types;
 
@@ -8,7 +9,7 @@ namespace GraphQL.Instrumentation
     {
         public Task<object> Resolve(ResolveFieldContext context, FieldMiddlewareDelegate next)
         {
-            var metadata = new Dictionary<string, object>
+            var metadata = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 {"typeName", context.ParentType.Name},
                 {"fieldName", context.FieldName}

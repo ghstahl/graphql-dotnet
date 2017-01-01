@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GraphQL.Language.AST;
 
 namespace GraphQL.Validation.Rules
@@ -17,7 +18,7 @@ namespace GraphQL.Validation.Rules
 
     public INodeVisitor Validate(ValidationContext context)
     {
-      var knownFragments = new Dictionary<string, FragmentDefinition>();
+      var knownFragments = new Dictionary<string, FragmentDefinition>(StringComparer.OrdinalIgnoreCase);
 
       return new EnterLeaveListener(_ =>
       {

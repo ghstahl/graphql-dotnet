@@ -18,7 +18,7 @@ namespace GraphQL.Validation.Rules
 
         public INodeVisitor Validate(ValidationContext context)
         {
-            var varDefMap = new Dictionary<string, VariableDefinition>();
+            var varDefMap = new Dictionary<string, VariableDefinition>(StringComparer.OrdinalIgnoreCase);
 
             return new EnterLeaveListener(_ =>
             {
@@ -27,7 +27,7 @@ namespace GraphQL.Validation.Rules
                 );
 
                 _.Match<Operation>(
-                    enter: op => varDefMap = new Dictionary<string, VariableDefinition>(),
+                    enter: op => varDefMap = new Dictionary<string, VariableDefinition>(StringComparer.OrdinalIgnoreCase),
                     leave: op =>
                     {
                         var usages = context.GetRecursiveVariables(op);

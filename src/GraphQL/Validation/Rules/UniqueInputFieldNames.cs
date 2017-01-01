@@ -18,7 +18,7 @@ namespace GraphQL.Validation.Rules
         public INodeVisitor Validate(ValidationContext context)
         {
             var knownNameStack = new Stack<Dictionary<string, IValue>>();
-            var knownNames = new Dictionary<string, IValue>();
+            var knownNames = new Dictionary<string, IValue>(StringComparer.OrdinalIgnoreCase);
 
             return new EnterLeaveListener(_ =>
             {
@@ -26,7 +26,7 @@ namespace GraphQL.Validation.Rules
                     enter: objVal =>
                     {
                         knownNameStack.Push(knownNames);
-                        knownNames = new Dictionary<string, IValue>();
+                        knownNames = new Dictionary<string, IValue>(StringComparer.OrdinalIgnoreCase);
                     },
                     leave: objVal =>
                     {

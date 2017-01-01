@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GraphQL.Language.AST;
 
 namespace GraphQL.Validation.Rules
@@ -12,12 +13,12 @@ namespace GraphQL.Validation.Rules
 
     public INodeVisitor Validate(ValidationContext context)
     {
-      var knownArgs = new Dictionary<string, Argument>();
+      var knownArgs = new Dictionary<string, Argument>(StringComparer.OrdinalIgnoreCase);
 
       return new EnterLeaveListener(_ =>
       {
-        _.Match<Field>(field => knownArgs = new Dictionary<string, Argument>());
-        _.Match<Directive>(field => knownArgs = new Dictionary<string, Argument>());
+        _.Match<Field>(field => knownArgs = new Dictionary<string, Argument>(StringComparer.OrdinalIgnoreCase));
+        _.Match<Directive>(field => knownArgs = new Dictionary<string, Argument>(StringComparer.OrdinalIgnoreCase));
 
         _.Match<Argument>(argument =>
         {

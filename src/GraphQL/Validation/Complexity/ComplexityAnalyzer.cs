@@ -14,7 +14,7 @@ namespace GraphQL.Validation.Complexity
             public double Complexity { get; set; }
         }
 
-        private Dictionary<string, FragmentComplexity> _fragmentMap { get; } = new Dictionary<string, FragmentComplexity>();
+        private Dictionary<string, FragmentComplexity> _fragmentMap { get; } = new Dictionary<string, FragmentComplexity>(StringComparer.OrdinalIgnoreCase);
         private ComplexityResult _result = new ComplexityResult();
         private readonly int _maxRecursionCount;
         private int _loopCounter;

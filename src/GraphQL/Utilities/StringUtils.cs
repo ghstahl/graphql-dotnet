@@ -91,7 +91,7 @@ namespace GraphQL.Utilities
                 return new string[0];
             }
 
-            var optionsByDistance = new Dictionary<string, int>();
+            var optionsByDistance = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
             var inputThreshold = input.Length / 2;
             options?.Apply(t =>
             {

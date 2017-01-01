@@ -114,7 +114,7 @@ namespace GraphQL.Instrumentation
     {
         public StatsReport()
         {
-            PerSignature = new Dictionary<string, StatsPerSignature>();
+            PerSignature = new Dictionary<string, StatsPerSignature>(StringComparer.OrdinalIgnoreCase);
         }
 
         public DateTime Start { get; set; }
